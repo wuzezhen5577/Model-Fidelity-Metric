@@ -1,3 +1,7 @@
+"""
+This script plot the figure of the Case 2: Low variability.
+"""
+
 from mfm import *
 from read_file import *
 
@@ -8,26 +12,26 @@ class case_2_low_variability():
         self.mfm_temp = mfm_temp
 
     def low_variability(self):
+        """Show the reliability of metrics in low variability case."""
+        
         t = np.arange(0, 100)
         # print('t\t', t)
         t_pi = t * np.pi
         cost = np.cos(t_pi)
-        # mfm_temp = mfm()
 
-        # 0 号实验：KGE、NSE 在恒定或低流量下不可靠
+        # Low variability data with anti-phase small outlier
         obs_anti_phase = np.abs(cost) * 1
         sim_anti_phase = np.abs(cost) * 1
         obs_anti_phase[len(t) - 1] = 0.99
         sim_anti_phase[len(t) - 1] = 1.01
 
-        # 1 号实验：KGE、NSE 在恒定或低流量下不可靠-RMSE、NRMSE 相等
+        # Low variability data with in-phase small outlier
         obs_in_phase = np.abs(cost) * 1
         sim_in_phase = np.abs(cost) * 1
-        # RMSE 不变参数
         obs_in_phase[len(t) - 1] = 1.03
         sim_in_phase[len(t) - 1] = 1.01
 
-        # print(sim_t2)
+        # Show metrics in the anti-phase case
         print('\033[1;31mAnti-phase case:\033[0m')
         print('MFM with phase penalty:')
         print(self.mfm_temp.model_fidelity_metric(sim_anti_phase, obs_anti_phase, phase=True))
@@ -38,12 +42,14 @@ class case_2_low_variability():
         std_m = self.mfm_temp.standard_metrics(sim_anti_phase, obs_anti_phase, plot=False)
         print(std_m)
 
+        # Show metrics in the in-phase case
         print('\033[1;31mIn-phase case:\033[0m')
         print(self.mfm_temp.model_fidelity_metric(sim_in_phase, obs_in_phase))
         print("========================")
         std_m = self.mfm_temp.standard_metrics(sim_in_phase, obs_in_phase)
         print(std_m)
-
+        
+        # Plot the synthetic data
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 5))
 
         ax1.plot(sim_anti_phase, color="#4477AA", alpha=0.8, lw=3, label="Simulation")
@@ -63,12 +69,14 @@ class case_2_low_variability():
         for ax in [ax1, ax2]:
             for tick in ax.get_xticklabels() + ax.get_yticklabels():
                 tick.set_fontname('Times New Roman')
-                tick.set_fontsize(16)  # 可选：统一字号
+                tick.set_fontsize(16)
         plt.tight_layout()
+        
+        # Save figure
         if self.write:
             print('\033[1;31mSaving case_2_low_variability...\033[0m')
-            plt.savefig("temp/case2_extreme_events.png", bbox_inches='tight', dpi=300)
-            plt.savefig("temp/case2_extreme_events.pdf", bbox_inches='tight', dpi=300)
+            plt.savefig("temp/case_2_extreme_events.png", bbox_inches='tight', dpi=300)
+            plt.savefig("temp/case_2_extreme_events.pdf", bbox_inches='tight', dpi=300)
             print('\033[1;31mDone.\033[0m')
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')
@@ -77,6 +85,8 @@ class case_2_low_variability():
         return 0
 
     def sensitivity(self):
+        """Test the low variability sensitivity."""
+        
         t = np.arange(0, 100)
         # print('t\t', t)
         t_pi = t * np.pi
@@ -84,14 +94,10 @@ class case_2_low_variability():
 
         categories = ['anti_phase', 'in_phase']
         metrics = ['mfm', 'nse', 'kge', 'mkge', 'rmse', 'nrmse']
-
-        # 创建嵌套字典：如 result['high_low']['mfm'] = np.zeros(scale)
         result = {
             category: {metric: np.zeros(self.scale) for metric in metrics}
             for category in categories
         }
-
-
 
         for i in range(self.scale):
             obs_anti_phase = np.abs(cost)
@@ -120,6 +126,8 @@ class case_2_low_variability():
             result['in_phase']['rmse'][i] = result_standard_metrcs['RMSE']
             result['in_phase']['nrmse'][i] = result_standard_metrcs['NRMSE']
 
+        # print(result)
+        
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
         ax1.plot(result['anti_phase']['mfm'], color="#4477AA", label='MFM', lw=3)
         ax1.plot(result['anti_phase']['nse'], color="#EE6677", label='NSE', alpha=0.8, lw=2)
@@ -152,10 +160,11 @@ class case_2_low_variability():
         for ax in [ax1, ax2]:
             for tick in ax.get_xticklabels() + ax.get_yticklabels():
                 tick.set_fontname('Times New Roman')
-                tick.set_fontsize(16)  # 可选：统一字号
+                tick.set_fontsize(16)
 
         plt.tight_layout()
-
+        
+        # Save figure
         if self.write:
             print('\033[1;31mSaving case_2_sensitivity...\033[0m')
             plt.savefig("temp/case_2_sensitivity.png", bbox_inches='tight', dpi=300)
@@ -164,11 +173,10 @@ class case_2_low_variability():
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')
         plt.show()
-
-        print(result)
-
+        
         return 0
 
-case_2_test = case_2_low_variability()
-case_2_test.low_variability()
-case_2_test.sensitivity()
+
+# case_2_test = case_2_low_variability()
+# case_2_test.low_variability()
+# case_2_test.sensitivity()

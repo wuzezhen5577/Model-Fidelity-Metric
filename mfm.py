@@ -1,10 +1,21 @@
+"""
+Introducing the Model Fidelity Metric (MFM) for robust and diagnostic hydrological evaluation
+
+This script is the calculation of MFM, standard metrics (i.e., NSE, KGE, mKGE), and error benchmarks (RMSE, NRMSE).
+
+Author: Zezhen Wu
+Version: 1.0.0
+Date: December 2025
+"""
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 class mfm:
     def __init__(self):
-        self.name= 'metrics'
+        self.name= 'mfm'
         self.date = 'December 2025'
         self.author = 'Zezhen Wu / wuzezhen5577@163.com'
 
@@ -13,9 +24,7 @@ class mfm:
     # def _validate_inputs(self, sim, obs):
 
     def model_fidelity_metric(self, sim, obs, p=1, bins_suse=10, bins_phi=10, c=4, phase=True):
-        """
-
-        """
+        """Calculating MFM"""
 
         def PHI_component(sim, obs, bins_phi):
             """Calculate Percentage of Histogram Intersection"""
@@ -35,7 +44,7 @@ class mfm:
             return min_sum / obs_total
 
         def SUSE_component(sim, obs, bins_suse):
-            """Calculate Scaled and Unscaled Entropy difference"""
+            """Calculate Scaled and Unscaled Shannon Entropy differences"""
             if len(sim) == 0 or len(obs) == 0:
                 return np.nan
 
@@ -165,6 +174,9 @@ class mfm:
         return result
 
     def standard_metrics(self, sim, obs, plot=False):
+
+        """Calculating Nash-Sutcliffe Efficiency (NSE), Kling-Gupta Efficiency (KGE), modified KGE (mKGE), RMSE, and NRMSE"""
+
         meanSim = np.nanmean(sim)
         meanObs = np.nanmean(obs)
         varSim = np.nanvar(sim)
@@ -222,13 +234,3 @@ class mfm:
             'rprod': float(rProd),
             'meanObs': float(meanObs)
         })
-
-
-
-sim = np.array([0, 0, 0.5, 0.2])
-obs = np.array([0, 0.2, 0.8, 0.5])
-mfm_test = mfm()
-result_mfm = mfm_test.model_fidelity_metric(sim, obs)
-# print(result_mfm)
-result_standard_metrcs = mfm_test.standard_metrics(sim, obs)
-# print(result_standard_metrcs)

@@ -1,25 +1,29 @@
+"""
+This script plot the figure of the Case 1: Error compensation.
+"""
+
 from mfm import *
 from read_file import *
 
 class case_1_error_compensation():
-    def __init__(self, scale=50, write=False, reader=read_file()):
+    def __init__(self, scale=50, write=False, reader=read_file(), mfm_temp=mfm()):
         self.scale = scale
         self.write = write
         self.reader = reader
+        self.mfm_temp = mfm_temp
 
 
     def error_compensation_data(self):
+        """Generating the error compensation data."""
+
         file = 'data/01013500_05_model_output.txt'
-        # reader = read_file()
         flow_data = self.reader.read_flow(file)
-        sim = flow_data['sim'].copy()
+        # sim = flow_data['sim'].copy()
         obs = flow_data['obs'].copy()
         obs_double = np.concatenate([obs, obs]).copy()
 
         categories = ['high_low', 'high_good']
         metrics = ['mfm', 'nse', 'kge', 'mkge', 'rmse', 'nrmse', 'alpha', 'beta']
-
-        # 创建嵌套字典：如 result['high_low']['mfm'] = np.zeros(scale)
         result = {
             category: {metric: np.zeros(self.scale) for metric in metrics}
             for category in categories
@@ -36,10 +40,8 @@ class case_1_error_compensation():
             sim_high_good = obs_double.copy()
             sim_high_good[:n] *= (k + 1) / k
 
-            mfm_temp = mfm()
-
-            result['high_low']['mfm'][j] = mfm_temp.model_fidelity_metric(sim=sim_high_low, obs=obs_double)['MFM']
-            result_standard_metrcs = mfm_temp.standard_metrics(sim=sim_high_low, obs=obs_double)
+            result['high_low']['mfm'][j] = self.mfm_temp.model_fidelity_metric(sim=sim_high_low, obs=obs_double)['MFM']
+            result_standard_metrcs = self.mfm_temp.standard_metrics(sim=sim_high_low, obs=obs_double)
             result['high_low']['nse'][j] = result_standard_metrcs['NSE']
             result['high_low']['kge'][j] = result_standard_metrcs['KGE']
             result['high_low']['mkge'][j] = result_standard_metrcs['mKGE']
@@ -48,8 +50,8 @@ class case_1_error_compensation():
             result['high_low']['alpha'][j] = result_standard_metrcs['alpha']
             result['high_low']['beta'][j] = result_standard_metrcs['beta']
 
-            result['high_good']['mfm'][j] = mfm_temp.model_fidelity_metric(sim=sim_high_good, obs=obs_double)['MFM']
-            result_standard_metrcs = mfm_temp.standard_metrics(sim=sim_high_good, obs=obs_double)
+            result['high_good']['mfm'][j] = self.mfm_temp.model_fidelity_metric(sim=sim_high_good, obs=obs_double)['MFM']
+            result_standard_metrcs = self.mfm_temp.standard_metrics(sim=sim_high_good, obs=obs_double)
             result['high_good']['nse'][j] = result_standard_metrcs['NSE']
             result['high_good']['kge'][j] = result_standard_metrcs['KGE']
             result['high_good']['mkge'][j] = result_standard_metrcs['mKGE']
@@ -61,6 +63,8 @@ class case_1_error_compensation():
         return result
 
     def plot_sensitivity(self):
+        """Plot error compensation sensitivity curve."""
+
         result_temp = case_1_error_compensation()
         result = result_temp.error_compensation_data()
 
@@ -85,6 +89,8 @@ class case_1_error_compensation():
         plt.xticks(fontname='Times New Roman', fontsize=18)
         plt.yticks(fontname='Times New Roman', fontsize=18)
         plt.tight_layout()
+        
+        # Save figure
         if self.write:
             print('\033[1;31mSaving case_1_sensitivity...\033[0m')
             plt.savefig("temp/case_1_sensitivity.png", bbox_inches='tight', dpi=300)
@@ -97,6 +103,8 @@ class case_1_error_compensation():
         return 0
 
     def plot_error_compensation(self):
+        """Plot error compensation figure."""
+
         result_temp = case_1_error_compensation()
         result = result_temp.error_compensation_data()
 
@@ -119,19 +127,13 @@ class case_1_error_compensation():
         bg_left = bg_scores[0:4]
         bg_right = bg_scores[4:8]
 
-
-
-        # --- 2. Create Figure with 2 Subplots ---
-        # 1 row, 2 columns. Set figsize to be wide enough for both.
-        # We set sharey=False because the y-axis labels are different.
+        # Generating figure
         fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=(8, 3.5), sharey=False)
 
-        # --- 3. Plot Left Subplot (Goodness-of-fit) ---
-
-        # Define y-axis positions (reverse order so MFM is at the top)
+        # Plot left subplot
         y_pos_left = np.arange(len(metrics_left))[::-1]
 
-        # Draw connecting lines (dumbbells)
+        # Draw connecting lines
         for i in range(len(metrics_left)):
             ax_left.plot([bg_left[i], bb_left[i]], [y_pos_left[i], y_pos_left[i]], 'k-', linewidth=1)
 
@@ -141,11 +143,10 @@ class case_1_error_compensation():
         # Draw BB model (black, solid circle)
         ax_left.scatter(bb_left, y_pos_left, color='black', s=80, zorder=5, label='BB model')
 
-        # Format left axes
+
         ax_left.set_yticks(y_pos_left)
         ax_left.set_yticklabels(metrics_left, fontname='Times New Roman', fontsize=14)
-        # ax_left.set_xlabel('Score', fontname='Times New Roman', fontsize=14)
-        ax_left.set_xlim(0.8, 1.02)  # Set X-limit for "goodness-of-fit"
+        ax_left.set_xlim(0.8, 1.02)
         ax_left.set_title(r'$\bf{(a)}$ Goodness-of-fit', loc='left', fontname='Times New Roman', fontsize=14)
 
         # Add ideal value line at 1.0
@@ -156,12 +157,10 @@ class case_1_error_compensation():
         ax_left.legend(loc='lower left', frameon=False, prop={'family': 'Times New Roman', 'size': 14},
                        bbox_to_anchor=(-0.1, -0.3), ncol=2)
 
-        # --- 4. Plot Right Subplot (Error/Components) ---
-
-        # Define y-axis positions
+        # Plot right subplot
         y_pos_right = np.arange(len(metrics_right))[::-1]
 
-        # Draw connecting lines (dumbbells)
+        # Draw connecting lines
         for i in range(len(metrics_right)):
             ax_right.plot([bg_right[i], bb_right[i]], [y_pos_right[i], y_pos_right[i]], 'k-', linewidth=1)
 
@@ -171,30 +170,26 @@ class case_1_error_compensation():
         # Draw BB model (black, solid circle)
         ax_right.scatter(bb_right, y_pos_right, color='black', s=80, zorder=5, label='BB model')
 
-        # Format right axes
         ax_right.set_yticks(y_pos_right)
         ax_right.set_yticklabels(metrics_right, fontname='Times New Roman', fontsize=14)
-        # ax_right.set_xlabel('Score', fontname='Times New Roman', fontsize=14)
-        ax_right.set_xlim(0.2, 1.2)  # Set X-limit for error/component metrics
+        ax_right.set_xlim(0.2, 1.2)
         ax_right.set_title(r'$\bf{(b)}$ Error and components', loc='left', fontname='Times New Roman', fontsize=14)
 
         # Add ideal value lines (0.0 for RMSE/NRMSE, 1.0 for alpha/beta)
         ax_right.axvline(x=0.0, color='gray', linestyle='--', alpha=0.5)
         ax_right.axvline(x=1.0, color='gray', linestyle='--', alpha=0.5)
 
-        # --- 5. Final Layout & Saving ---
         for tick in ax_left.get_xticklabels():
             tick.set_fontname('Times New Roman')
             tick.set_fontsize(14)
 
-        # 设置右子图 x 轴刻度字体
         for tick in ax_right.get_xticklabels():
             tick.set_fontname('Times New Roman')
             tick.set_fontsize(14)
 
-        # Adjust layout to prevent overlap
         plt.tight_layout()
 
+        # Save figure
         if self.write:
             print('\033[1;31mSaving case_1_error_compensation...\033[0m')
             plt.savefig("temp/case_1_error_compensation.png", dpi=300, bbox_inches='tight')
@@ -202,13 +197,11 @@ class case_1_error_compensation():
             print('\033[1;31mDone\033[0m')
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')
-
-        # Show the plot
         plt.show()
+        
+        return 0
 
 
-case_1_test = case_1_error_compensation()
-# result = case_1_test.error_compensation_data()
-case_1_test.plot_sensitivity()
-case_1_test.plot_error_compensation()
-
+# case_1_test = case_1_error_compensation()
+# case_1_test.plot_sensitivity()
+# case_1_test.plot_error_compensation()
