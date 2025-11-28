@@ -56,14 +56,14 @@ class case_2_low_variability():
         ax1.plot(obs_anti_phase, color="#EE6677", alpha=0.8, lw=3, label="Observation")
         ax1.set_ylabel('Value', fontname='Times New Roman', fontsize=18)
         ax1.set_xlabel('Time', fontname='Times New Roman', fontsize=18)
-        ax1.set_title(r'$\bf{(a)}$ Runoff data with a small outlier, different phase.', fontname='Times New Roman',
+        ax1.set_title(r'$\bf{(a)}$ Runoff data with a small anti-phase outlier', fontname='Times New Roman',
                       fontsize=18)
 
         ax2.plot(sim_in_phase, color="#4477AA", alpha=0.8, lw=3, label="Simulation")
         ax2.plot(obs_in_phase, color="#EE6677", alpha=0.8, lw=3, label="Observation")
         ax2.set_ylabel('Value', fontname='Times New Roman', fontsize=18)
         ax2.set_xlabel('Time', fontname='Times New Roman', fontsize=18)
-        ax2.set_title(r'$\bf{(b)}$ Runoff data with an extreme event, same phase.', fontname='Times New Roman',
+        ax2.set_title(r'$\bf{(b)}$ Runoff data with a small in-phase outlier', fontname='Times New Roman',
                       fontsize=18)
         ax2.legend(frameon=False, prop={'family': 'Times New Roman', 'size': 18})
         for ax in [ax1, ax2]:
@@ -74,9 +74,9 @@ class case_2_low_variability():
         
         # Save figure
         if self.write:
-            print('\033[1;31mSaving case_2_low_variability...\033[0m')
-            plt.savefig("temp/case_2_extreme_events.png", bbox_inches='tight', dpi=300)
-            plt.savefig("temp/case_2_extreme_events.pdf", bbox_inches='tight', dpi=300)
+            print('\033[1;31mSaving case_2_outlier...\033[0m')
+            plt.savefig("temp/case_2_outlier.png", bbox_inches='tight', dpi=300)
+            plt.savefig("temp/case_2_outlier.pdf", bbox_inches='tight', dpi=300)
             print('\033[1;31mDone.\033[0m')
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')

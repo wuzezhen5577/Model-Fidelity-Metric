@@ -162,14 +162,14 @@ class case_3_phase_error():
 
         ax2.plot(sim_anti_phase, color='#4477AA', alpha=0.8, label="Simulation", lw=1.5, zorder=2)
         ax2.plot(obs_anti_phase, color="#EE6677", alpha=0.8, label="Observation", lw=1.5, zorder=1)
-        ax2.set_title(r'$\bf{(b)}$ Reverse phase', fontname='Times New Roman', fontsize=18)
+        ax2.set_title(r'$\bf{(b)}$ Anti-phase', fontname='Times New Roman', fontsize=18)
         ax2.set_xlabel('Time', fontname='Times New Roman', fontsize=18)
         ax2.set_ylabel('Value', fontname='Times New Roman', fontsize=18)
         # ax2.legend()
 
         ax3.plot(sim_failure, color='#4477AA', alpha=0.8, label="Simulation", lw=1.5, zorder=2)
         ax3.plot(obs_failure, color="#EE6677", alpha=0.8, label="Observation", lw=1.5, zorder=1)
-        ax3.set_title(r'$\bf{(c)}$ Simulation failure', fontname='Times New Roman', fontsize=18)
+        ax3.set_title(r'$\bf{(c)}$ Failure', fontname='Times New Roman', fontsize=18)
         ax3.set_xlabel('Time', fontname='Times New Roman', fontsize=18)
         ax3.set_ylabel('Value', fontname='Times New Roman', fontsize=18)
         # ax3.legend()
