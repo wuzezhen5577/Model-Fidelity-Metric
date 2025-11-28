@@ -76,7 +76,7 @@ class case_2_low_variability():
 
         return 0
 
-    def low_variability_sensitivity(self):
+    def sensitivity(self):
         t = np.arange(0, 100)
         # print('t\t', t)
         t_pi = t * np.pi
@@ -157,9 +157,9 @@ class case_2_low_variability():
         plt.tight_layout()
 
         if self.write:
-            print('\033[1;31mSaving case_2_low_variability_sensitivity...\033[0m')
-            plt.savefig("temp/case_2_low_variability_sensitivity.png", bbox_inches='tight', dpi=300)
-            plt.savefig("temp/case_2_low_variability_sensitivity.pdf", bbox_inches='tight', dpi=300)
+            print('\033[1;31mSaving case_2_sensitivity...\033[0m')
+            plt.savefig("temp/case_2_sensitivity.png", bbox_inches='tight', dpi=300)
+            plt.savefig("temp/case_2_sensitivity.pdf", bbox_inches='tight', dpi=300)
             print('\033[1;31mDone.\033[0m')
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')
@@ -171,4 +171,4 @@ class case_2_low_variability():
 
 case_2_test = case_2_low_variability()
 case_2_test.low_variability()
-case_2_test.low_variability_sensitivity()
+case_2_test.sensitivity()

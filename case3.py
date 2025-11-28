@@ -147,9 +147,9 @@ class case_3_phase_error():
 
         # --- 8. 显示或保存图片 ---
         if self.write:
-            print('\033[1;31mSaving case_3_phase_error_geometry...\033[0m')
-            plt.savefig("temp/case_3_phase_error_geometry.png", dpi=300, bbox_inches='tight')  # 保存为高分辨率png
-            plt.savefig("temp/case_3_phase_error_geometry.pdf", dpi=300, bbox_inches='tight')  # 保存为高分辨率png
+            print('\033[1;31mSaving case_3_geometry...\033[0m')
+            plt.savefig("temp/case_3_geometry.png", dpi=300, bbox_inches='tight')  # 保存为高分辨率png
+            plt.savefig("temp/case_3_geometry.pdf", dpi=300, bbox_inches='tight')  # 保存为高分辨率png
             print('\033[1;31mDone.\033[0m')
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')
@@ -227,8 +227,8 @@ class case_3_phase_error():
         plt.tight_layout()
         if self.write:
             print('\033[1;31mSaving phase_error_decoupling...\033[0m')
-            plt.savefig("temp/case_3_phase_error_decoupling.png", dpi=300, bbox_inches='tight')  # 保存为高分辨率png
-            plt.savefig("temp/case_3_phase_error_decoupling.pdf", dpi=300, bbox_inches='tight')  # 保存为高分辨率png
+            plt.savefig("temp/case_3_decoupling.png", dpi=300, bbox_inches='tight')  # 保存为高分辨率png
+            plt.savefig("temp/case_3_decoupling.pdf", dpi=300, bbox_inches='tight')  # 保存为高分辨率png
             print('\033[1;31mDone.\033[0m')
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')
@@ -284,8 +284,8 @@ class case_3_phase_error():
 
         if self.write:
             print('\033[1;31mSaving phase_error_decoupling...\033[0m')
-            plt.savefig("temp/case3_phase_sensitivity.png", bbox_inches='tight', dpi=300)
-            plt.savefig("temp/case3_phase_sensitivity.pdf", bbox_inches='tight', dpi=300)
+            plt.savefig("temp/case3_sensitivity.png", bbox_inches='tight', dpi=300)
+            plt.savefig("temp/case3_sensitivity.pdf", bbox_inches='tight', dpi=300)
             print('\033[1;31mDone.\033[0m')
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')

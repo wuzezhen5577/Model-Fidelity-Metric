@@ -2,15 +2,16 @@ from mfm import *
 from read_file import *
 
 class case_1_error_compensation():
-    def __init__(self, scale=50, write=False):
+    def __init__(self, scale=50, write=False, reader=read_file()):
         self.scale = scale
         self.write = write
+        self.reader = reader
 
 
     def error_compensation_data(self):
-        file = 'D:/clark2021py/data/daymet/00/01013500_05_model_output.txt'
-        reader = read_file()
-        flow_data = reader.read_flow(file)
+        file = 'data/01013500_05_model_output.txt'
+        # reader = read_file()
+        flow_data = self.reader.read_flow(file)
         sim = flow_data['sim'].copy()
         obs = flow_data['obs'].copy()
         obs_double = np.concatenate([obs, obs]).copy()
@@ -59,7 +60,7 @@ class case_1_error_compensation():
 
         return result
 
-    def plot_error_compensation_sensitivity(self):
+    def plot_sensitivity(self):
         result_temp = case_1_error_compensation()
         result = result_temp.error_compensation_data()
 
@@ -85,9 +86,9 @@ class case_1_error_compensation():
         plt.yticks(fontname='Times New Roman', fontsize=18)
         plt.tight_layout()
         if self.write:
-            print('\033[1;31mSaving case_1_error_compensation_sensitivity...\033[0m')
-            plt.savefig("temp/case_1_error_compensation_sensitivity.png", bbox_inches='tight', dpi=300)
-            plt.savefig("temp/case_1_error_compensation_sensitivity.pdf", bbox_inches='tight', dpi=300)
+            print('\033[1;31mSaving case_1_sensitivity...\033[0m')
+            plt.savefig("temp/case_1_sensitivity.png", bbox_inches='tight', dpi=300)
+            plt.savefig("temp/case_1_sensitivity.pdf", bbox_inches='tight', dpi=300)
             print('\033[1;31mDone.\033[0m')
         else:
             print('\033[1;31mFigure will not be saved.\033[0m')
@@ -208,6 +209,6 @@ class case_1_error_compensation():
 
 case_1_test = case_1_error_compensation()
 # result = case_1_test.error_compensation_data()
-case_1_test.plot_error_compensation_sensitivity()
+case_1_test.plot_sensitivity()
 case_1_test.plot_error_compensation()
 
