@@ -1,7 +1,7 @@
 """
 Introducing the Model Fidelity Metric (MFM) for robust and diagnostic hydrological evaluation
 
-This script is the calculation of MFM, standard metrics (i.e., NSE, KGE, mKGE), and error benchmarks (RMSE, NRMSE).
+This script calculates MFM, standard metrics (i.e., NSE, KGE, mKGE), and error benchmarks (RMSE, NRMSE).
 
 Author: Zezhen Wu
 Version: 1.0.0
@@ -24,7 +24,7 @@ class mfm:
     # def _validate_inputs(self, sim, obs):
 
     def model_fidelity_metric(self, sim, obs, p=1, bins_suse=10, bins_phi=10, c=4, phase=True):
-        """Calculating MFM"""
+        """Calculate MFM"""
 
         def PHI_component(sim, obs, bins_phi):
             """Calculate Percentage of Histogram Intersection"""
@@ -174,7 +174,6 @@ class mfm:
         return result
 
     def standard_metrics(self, sim, obs, plot=False):
-
         """Calculating Nash-Sutcliffe Efficiency (NSE), Kling-Gupta Efficiency (KGE), modified KGE (mKGE), RMSE, and NRMSE"""
 
         meanSim = np.nanmean(sim)

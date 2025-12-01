@@ -1,5 +1,5 @@
 """
-This script plot the hyperparameter sensitivity of MFM
+This script plots the hyperparameter sensitivity of MFM.
 """
 
 from mfm import *

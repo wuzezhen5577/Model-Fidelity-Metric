@@ -1,5 +1,5 @@
 """
-This script test MFM in CAMELS dataset.
+This script tests MFM in CAMELS dataset.
 """
 
 from mfm import *

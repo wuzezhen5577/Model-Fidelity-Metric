@@ -1,5 +1,5 @@
 """
-This script plot the figure of the Case 1: Error compensation.
+This script plots the figure of the Case 1: Error compensation.
 """
 
 from mfm import *

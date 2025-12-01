@@ -1,4 +1,6 @@
-"""This script represent how phase affects the standard metrics."""
+"""
+This script represents how phase affects the standard metrics.
+"""
 
 from mfm import *
 from read_file import *

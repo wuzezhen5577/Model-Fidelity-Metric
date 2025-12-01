@@ -1,5 +1,5 @@
 """
-This script plot the figure of the Case 2: Low variability.
+This script plots the figure of the Case 2: Low variability.
 """
 
 from mfm import *
