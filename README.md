@@ -2,7 +2,7 @@
 
 > A robust, reliable, and normalized metric for model evaluation and scoring.
 
-This repository contains the calculation of metrics and generating case studies.
+Metrics calculation and case studies generating.
 
 ```
 Model Fidelity Metric/
