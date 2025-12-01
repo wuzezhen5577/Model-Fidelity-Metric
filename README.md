@@ -28,3 +28,7 @@ Model Fidelity Metric/
 ## Run case studies
 
 Run `example.py` to generate all figures. Turn on `write_option=True` option to save all figures in the folder `temp/`.
+
+## Data availability
+
+Runoff data is from Daymet dataset in CAMELS dataset <https://zenodo.org/records/15529996> (Newman, A. J., Sampson, K., Clark, M., Bock, A., Viger, R., Blodgett, D., Addor, N., & Mizukami, M. (2022). CAMELS: Catchment Attributes and MEteorology for Large-sample Studies (1.2) [Data set]. Zenodo. https://doi.org/10.5065/D6MW2F4D).
