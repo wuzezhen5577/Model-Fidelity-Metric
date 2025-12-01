@@ -27,4 +27,4 @@ Model Fidelity Metric/
 
 ## Run case studies
 
-Run `example.py` to generate all figures. Turn on `write=True` option to save all figures in the folder `temp/`.
+Run `example.py` to generate all figures. Turn on `write_option=True` option to save all figures in the folder `temp/`.
