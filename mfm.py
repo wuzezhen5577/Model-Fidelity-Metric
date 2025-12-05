@@ -157,10 +157,10 @@ class mfm:
 
             # Calculate MFM
             mfm_value = 1 - (np.sqrt(
-                (1 - normalized_error) ** 2 +
+                ((1 - normalized_error) ** 2 +
                 (1 - variability_capture) ** 2 +
-                (1 - distribution_similarity) ** 2
-            )) / np.sqrt(3)
+                (1 - distribution_similarity) ** 2) / 3
+            ))
 
             return pd.Series({'MFM':float(mfm_value),
                       'PPF':float(phase_penalty_factor) if phase else np.nan,
