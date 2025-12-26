@@ -135,7 +135,7 @@ class mfm:
 
             # Calculate components
             # 1. Normalized error with phase penalty
-            nmaep = np.power(np.mean(np.power(np.abs(sim_clean - obs_clean), p)), 1 / p) / np.mean(obs_clean)
+            nmaep = np.power(np.mean(np.power(np.abs(sim_clean - obs_clean), p)), 1 / p) / abs(np.mean(obs_clean))
 
             if phase:
                 phase_difference_rad = PPF_component(sim_clean, obs_clean)
