@@ -39,14 +39,14 @@ class case_2_low_variability():
         print('MFM without phase penalty:')
         print(self.mfm_temp.model_fidelity_metric(sim_anti_phase, obs_anti_phase, phase=False))
         print("========================")
-        std_m = self.mfm_temp.standard_metrics(sim_anti_phase, obs_anti_phase, plot=False)
+        std_m = self.mfm_temp.baseline_metrics(sim_anti_phase, obs_anti_phase, plot=False)
         print(std_m)
 
         # Show metrics in the in-phase case
         print('\033[1;31mIn-phase case:\033[0m')
         print(self.mfm_temp.model_fidelity_metric(sim_in_phase, obs_in_phase))
         print("========================")
-        std_m = self.mfm_temp.standard_metrics(sim_in_phase, obs_in_phase)
+        std_m = self.mfm_temp.baseline_metrics(sim_in_phase, obs_in_phase)
         print(std_m)
         
         # Plot the synthetic data
@@ -111,7 +111,7 @@ class case_2_low_variability():
             sim_in_phase[len(t) - 1] = 1.01 + i / 100
 
             result['anti_phase']['mfm'][i] = self.mfm_temp.model_fidelity_metric(sim_anti_phase, obs_anti_phase, phase=True)['MFM']
-            result_standard_metrcs = self.mfm_temp.standard_metrics(sim_anti_phase, obs_anti_phase)
+            result_standard_metrcs = self.mfm_temp.baseline_metrics(sim_anti_phase, obs_anti_phase)
             result['anti_phase']['nse'][i] = result_standard_metrcs['NSE']
             result['anti_phase']['kge'][i] = result_standard_metrcs['KGE']
             result['anti_phase']['mkge'][i] = result_standard_metrcs['mKGE']
@@ -119,7 +119,7 @@ class case_2_low_variability():
             result['anti_phase']['nrmse'][i] = result_standard_metrcs['NRMSE']
 
             result['in_phase']['mfm'][i] = self.mfm_temp.model_fidelity_metric(sim_in_phase, obs_in_phase, p=1, phase=True)['MFM']
-            result_standard_metrcs = self.mfm_temp.standard_metrics(sim_in_phase, obs_in_phase)
+            result_standard_metrcs = self.mfm_temp.baseline_metrics(sim_in_phase, obs_in_phase)
             result['in_phase']['nse'][i] = result_standard_metrcs['NSE']
             result['in_phase']['kge'][i] = result_standard_metrcs['KGE']
             result['in_phase']['mkge'][i] = result_standard_metrcs['mKGE']

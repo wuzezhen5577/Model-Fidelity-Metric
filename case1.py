@@ -41,7 +41,7 @@ class case_1_error_compensation():
             sim_high_good[:n] *= (k + 1) / k
 
             result['high_low']['mfm'][j] = self.mfm_temp.model_fidelity_metric(sim=sim_high_low, obs=obs_double)['MFM']
-            result_standard_metrcs = self.mfm_temp.standard_metrics(sim=sim_high_low, obs=obs_double)
+            result_standard_metrcs = self.mfm_temp.baseline_metrics(sim=sim_high_low, obs=obs_double)
             result['high_low']['nse'][j] = result_standard_metrcs['NSE']
             result['high_low']['kge'][j] = result_standard_metrcs['KGE']
             result['high_low']['mkge'][j] = result_standard_metrcs['mKGE']
@@ -51,7 +51,7 @@ class case_1_error_compensation():
             result['high_low']['beta'][j] = result_standard_metrcs['beta']
 
             result['high_good']['mfm'][j] = self.mfm_temp.model_fidelity_metric(sim=sim_high_good, obs=obs_double)['MFM']
-            result_standard_metrcs = self.mfm_temp.standard_metrics(sim=sim_high_good, obs=obs_double)
+            result_standard_metrcs = self.mfm_temp.baseline_metrics(sim=sim_high_good, obs=obs_double)
             result['high_good']['nse'][j] = result_standard_metrcs['NSE']
             result['high_good']['kge'][j] = result_standard_metrcs['KGE']
             result['high_good']['mkge'][j] = result_standard_metrcs['mKGE']
@@ -116,10 +116,12 @@ class case_1_error_compensation():
             [result['high_low']['mfm'][3], result['high_low']['nse'][3], result['high_low']['kge'][3],
              result['high_low']['mkge'][3], result['high_low']['rmse'][3], result['high_low']['nrmse'][3],
              result['high_low']['alpha'][3], result['high_low']['beta'][3]])
+        print(f"\033[1;31mbb_scores = {bb_scores}\033[0m")
         bg_scores = np.array(
             [result['high_good']['mfm'][3], result['high_good']['nse'][3], result['high_good']['kge'][3],
              result['high_good']['mkge'][3], result['high_good']['rmse'][3], result['high_good']['nrmse'][3],
              result['high_good']['alpha'][3], result['high_good']['beta'][3]])
+        print(f"\033[1;31mbg_scores = {bg_scores}\033[0m")
 
         bb_left = bb_scores[0:4]
         bb_right = bb_scores[4:8]

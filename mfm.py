@@ -1,11 +1,11 @@
 """
-Introducing the Model Fidelity Metric (MFM) for robust and diagnostic hydrological evaluation
+Introducing the Model Fidelity Metric (MFM) for robust and diagnostic land surface model evaluation
 
-This script calculates MFM, standard metrics (i.e., NSE, KGE, mKGE), and error benchmarks (RMSE, NRMSE).
+This script calculates MFM, baseline metrics (i.e., NSE, KGE, mKGE), and error magnitudes (RMSE, NRMSE).
 
 Author: Zezhen Wu
-Version: 1.0.0
-Date: December 2025
+Version: 1.0.1
+Date: February 2026
 """
 
 import numpy as np
@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 class mfm:
     def __init__(self):
         self.name= 'mfm'
-        self.date = 'December 2025'
+        self.date = 'February 2026'
         self.author = 'Zezhen Wu / wuzezhen5577@163.com'
 
         np.seterr(all='ignore')
@@ -173,7 +173,7 @@ class mfm:
         result = MFM_calculation(sim, obs)
         return result
 
-    def standard_metrics(self, sim, obs, plot=False):
+    def baseline_metrics(self, sim, obs, plot=False):
         """Calculating Nash-Sutcliffe Efficiency (NSE), Kling-Gupta Efficiency (KGE), modified KGE (mKGE), RMSE, and NRMSE"""
 
         meanSim = np.nanmean(sim)

@@ -142,17 +142,17 @@ class case_3_phase_error():
         print('\033[1;31mExtreme event case:\033[0m')
         print(self.mfm_temp.model_fidelity_metric(sim_extreme, obs_extreme))
         print("========================")
-        print(self.mfm_temp.standard_metrics(sim_extreme, obs_extreme))
+        print(self.mfm_temp.baseline_metrics(sim_extreme, obs_extreme))
 
         print('\033[1;31mAnti-phase case:\033[0m')
         print(self.mfm_temp.model_fidelity_metric(sim_anti_phase, obs_anti_phase))
         print("========================")
-        print(self.mfm_temp.standard_metrics(sim_anti_phase, obs_anti_phase))
+        print(self.mfm_temp.baseline_metrics(sim_anti_phase, obs_anti_phase))
 
         print('\033[1;31mFailure case:\033[0m')
         print(self.mfm_temp.model_fidelity_metric(sim_failure, obs_failure))
         print("========================")
-        print(self.mfm_temp.standard_metrics(sim_failure, obs_failure))
+        print(self.mfm_temp.baseline_metrics(sim_failure, obs_failure))
 
         fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(8, 6))
         ax1.plot(sim_extreme, color='#4477AA', alpha=0.8, label="Simulation", lw=1.5, zorder=2)
@@ -209,7 +209,7 @@ class case_3_phase_error():
             sim_sensitivity = - cost / (i + 1) + 1
 
             result['mfm'][i] = self.mfm_temp.model_fidelity_metric(sim_sensitivity, obs_sensitivity)['MFM']
-            std_m = self.mfm_temp.standard_metrics(sim_sensitivity, obs_sensitivity)
+            std_m = self.mfm_temp.baseline_metrics(sim_sensitivity, obs_sensitivity)
             result['nse'][i] = std_m['NSE']
             result['kge'][i] = std_m['KGE']
             result['mkge'][i] = std_m['mKGE']

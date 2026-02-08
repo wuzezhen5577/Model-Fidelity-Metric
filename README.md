@@ -1,6 +1,6 @@
-# Introducing the Model Fidelity Metric (MFM) for robust and diagnostic hydrological evaluation
+# Introducing the Model Fidelity Metric (MFM) for robust and diagnostic land surface model evaluation
 
-> A robust, reliable, and normalized metric for model evaluation and scoring.
+> A robust, reliable, and normalized metric for land surface model evaluation and scoring.
 
 Metrics calculation and case studies generating.
 
@@ -23,7 +23,7 @@ Model Fidelity Metric/
 
 - Function `model_fidelity_metric` calculates MFM. The hyperparameters `p=1, bins_suse=10, bins_phi=10, c=4` is the default setting in paper.
 
-- Function `standard_metrics` calculates NSE, KGE, mKGE, RMSE, NRMSE.
+- Function `baseline_metrics` calculates NSE, KGE, mKGE, RMSE, NRMSE.
 
 ## Run case studies
 
